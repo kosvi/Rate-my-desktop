@@ -2,9 +2,9 @@
 
 ## Contents
 
-[Description](#Description)
-[Wireframes](#Wireframes)
-[Database](#Database)
+- [Description](#Description)
+- [Wireframes](#Wireframes)
+- [Database](#Database)
 
 ## Description
 
@@ -25,7 +25,7 @@ Since this is a backend-course, the frontend is kept quite simple.
 
 Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 
-#### Users
+### Users
 
 *Users are stored in this table. No additional data is gathered (like email, real name etc.)*
 
@@ -36,7 +36,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | username | varchar(100) | username for the user |
 | password | varchar(200) | password for the user |
 
-#### UserLevels
+### UserLevels
 
 *This table contains different access levels the users might have*
 
@@ -46,7 +46,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | level_name | varchar(100) | a clear text name for the level (seen in profile) |
 | level_value | varchar(100) | a value used in the code (like 'ADMIN' or 'USER') |
 
-#### Screenshots
+### Screenshots
 
 *This is the table used to store screenshots. Actual images are stored on disk, but this table contains a filename for finding the correct file.*
 
