@@ -14,4 +14,8 @@ Project has to be done using Spring Boot and webpages have to be rendered using 
 
 ## Wireframes
 
+Since this is a backend-course, the frontend is kept quite simple. 
+
+![Wireframe](Docs/Wireframes/Wireframe.svg "Wireframe")
+
 
