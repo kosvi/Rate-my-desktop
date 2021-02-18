@@ -84,7 +84,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | comment | varchar(255) | the actual comment shown on the page |
 | timestamp | datetime | date & time when the comment was posted |
 
-# Ratings 
+### Ratings 
 
 *This table contains the ratings for the screenshots.*
 
