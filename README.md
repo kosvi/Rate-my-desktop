@@ -40,7 +40,7 @@ Since this is a backend-course, the frontend is kept quite simple.
 
 Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 
-### Users
+### User
 
 *Users are stored in this table. No additional data is gathered (like email, real name etc.)*
 
@@ -51,7 +51,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | username | varchar(100) | username for the user |
 | password | varchar(200) | password for the user |
 
-### UserLevels
+### UserLevel
 
 *This table contains different access levels the users might have*
 
@@ -61,7 +61,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | level_name | varchar(100) | a clear text name for the level (seen in profile) |
 | level_value | varchar(100) | a value used in the code (like 'ADMIN' or 'USER') |
 
-### Screenshots
+### Screenshot
 
 *This is the table used to store screenshots. Actual images are stored on disk, but this table contains a filename for finding the correct file.*
 
@@ -72,7 +72,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | screenshot_name | varchar(100) | Give a kewl name for your screenshot |
 | filename | varchar(100) | A generated name used for accessing the file from disc. |
 
-### Comments 
+### Comment
 
 *This table stores comments posted on screenshots.*
 
@@ -84,7 +84,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | comment | varchar(255) | the actual comment shown on the page |
 | timestamp | datetime | date & time when the comment was posted |
 
-### Ratings 
+### Rating 
 
 *This table contains the ratings for the screenshots.*
 
