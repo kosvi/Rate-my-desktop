@@ -6,6 +6,7 @@
 - [User stories](#User-stories)
 - [Wireframes](#Wireframes)
 - [Database](#Database)
+- [Api](#Api)
 
 ## Description
 
@@ -47,7 +48,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | Field | Type | Description |
 |----  |---- | -----|
 | userID | int PK | id of the user |
-| levelID | int FK | what is the level of the user (locked/user/admin/etc.). Refers to [UserLevels](#UserLevels) |
+| levelID | int FK | what is the level of the user (locked/user/admin/etc.). Refers to [UserLevel](#UserLevel) |
 | username | varchar(100) | username for the user |
 | password | varchar(200) | password for the user |
 
@@ -68,7 +69,7 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | Field | Type | Description |
 |----|----|----|
 | screenshotID | int PK | id for the screenshot |
-| userID | int FK | used for finding the owner of the screenshot. Refers to [Users](#Users) |
+| userID | int FK | used for finding the owner of the screenshot. Refers to [User](#User) |
 | screenshot_name | varchar(100) | Give a kewl name for your screenshot |
 | filename | varchar(100) | A generated name used for accessing the file from disc. |
 
@@ -79,8 +80,8 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | Field | Type | Description |
 |----|----|----|
 | commentID | int PK | id for the comment |
-| screenshotID | int FK | id for the [screenshot|(#Screenshots) |
-| userID | int FK | id for the [user](#Users) who posted the comment |
+| screenshotID | int FK | id for the [screenshot](#Screenshot) |
+| userID | int FK | id for the [user](#User) who posted the comment |
 | comment | varchar(255) | the actual comment shown on the page |
 | timestamp | datetime | date & time when the comment was posted |
 
@@ -91,7 +92,45 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | Field | Type | Description |
 |----|----|----|
 | ratingID | int PK | id for the rating |
-| screenshotID | int FK | id for the [screenshot](#Screenshots) |
-| userID | int FK | id for the [user](#Users) who gave the rating |
+| screenshotID | int FK | id for the [screenshot](#Screenshot) |
+| userID | int FK | id for the [user](#User) who gave the rating |
 | rating | int | the actual value given for the screenshot (1-5) |
+
+## Api
+
+Here is the list of REST endpoints. Base url for api is: [rmd.codecache.eu/api](https://rmd.codecache.eu/api)
+
+### Screenshot related
+
+Each endpoint will hand out information about a screenshot. There is also an endpoint to list ALL screenshots, should someone want to use that. 
+
+| Method | Path | Access | Description |
+|---- |---- |------ | ---- |
+| `GET` | `/random` | Open | Gives random screenshot information from database |
+| `GET` | `/screenshot/:id` | Open | Gives information for the screenshot with given id |
+| `GET` | `/screenshots` | Open | Lists all screenshots |
+| `DELETE` | `/screenshot/:id` | Admin, Owner | Deletes screenshots with given id | 
+
+### Comments and Rating related 
+
+These endpoints are used to handle comments and rating of the screenshots. 
+
+| Method | Path | Access | Description |
+|---- |-----| -----| ----- |
+| `GET` | `/rating/:id` | User | Get current rating of screenshot with id | 
+| `POST` | `/rating/:id` | USer | Rate a screenshot with id |
+| `GET` | `/comments/:id` | User | Get all comments for screenshot with id |
+| `POST` | `/comments/:id` | User | Add comment to screenshot with id | 
+| `DELETE` | `/comments/:id` | Admin | Delete **comment** with id, only available for admin |
+
+### Current user related
+
+This endpoint will allow current user to modify his/her settings. 
+
+| Method | Path | Access | Description |
+| ----- | ----- | ----- | ----- |
+| `GET` | `/user` | User | Give username and list users screenshots |
+| `PUT` | `/user` | User | Update profile (username & password) | 
+| `DELETE` | `/user/:id` | Admin | Allows Admin-level users to delete other accounts | 
+
 
