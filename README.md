@@ -59,8 +59,8 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 | Field | Type | Description |
 |----|----|----|
 | levelID | int PK | id of the level |
-| level_name | varchar(100) | a clear text name for the level (seen in profile) |
-| level_value | varchar(100) | a value used in the code (like 'ADMIN' or 'USER') |
+| name | varchar(100) | a clear text name for the level (seen in profile) |
+| value | varchar(100) | a value used in the code (like 'ADMIN' or 'USER') |
 
 ### Screenshot
 

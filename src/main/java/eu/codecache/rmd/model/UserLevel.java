@@ -13,10 +13,10 @@ public class UserLevel {
 	private long levelID;
 
 	@Size(min = 3, max = 100)
-	private String levelName;
+	private String name;
 
 	@Size(min = 3, max = 100)
-	private String levelValue;
+	private String value;
 
 	public UserLevel() {
 
@@ -24,8 +24,8 @@ public class UserLevel {
 
 	public UserLevel(String name, String value) {
 		super();
-		this.levelName = name;
-		this.levelValue = value;
+		this.name = name;
+		this.value = value;
 	}
 
 	public long getLevelID() {
@@ -36,19 +36,19 @@ public class UserLevel {
 		this.levelID = levelID;
 	}
 
-	public String getLevelName() {
-		return levelName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLevelName(String levelName) {
-		this.levelName = levelName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLevelValue() {
-		return levelValue;
+	public String getValue() {
+		return value;
 	}
 
-	public void setLevelValue(String levelValue) {
-		this.levelValue = levelValue;
+	public void setValue(String value) {
+		this.value = value;
 	}
 }

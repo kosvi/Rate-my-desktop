@@ -25,6 +25,7 @@ public class Screenshot {
 	@Size(min = 5, max = 100)
 	private String screenshotName;
 
+	@JsonIgnore
 	@Size(min = 10, max = 100)
 	private String filename;
 
