@@ -98,39 +98,54 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 
 ## Api
 
-Here is the list of REST endpoints. Base url for api is: [rmd.codecache.eu/api](https://rmd.codecache.eu/api)
+Here is the list of REST endpoints. Base url for api is: `/api`
 
-### Screenshot related
+### Screenshots
 
 Each endpoint will hand out information about a screenshot. There is also an endpoint to list ALL screenshots, should someone want to use that. 
 
 | Method | Path | Access | Description |
 |---- |---- |------ | ---- |
-| `GET` | `/random` | Open | Gives random screenshot information from database |
-| `GET` | `/screenshot/:id` | Open | Gives information for the screenshot with given id |
+| `GET` | `/screenshots/random` | Open | Gives random screenshot information from database |
+| `GET` | `/screenshots/:id` | Open | Gives information for the screenshot with given id |
 | `GET` | `/screenshots` | Open | Lists all screenshots |
-| `DELETE` | `/screenshot/:id` | Admin, Owner | Deletes screenshots with given id | 
+| `DELETE` | `/screenshots/:id` | Admin, Owner | Deletes screenshots with given id | 
 
-### Comments and Rating related 
+### Comments
 
-These endpoints are used to handle comments and rating of the screenshots. 
+These endpoints are used to handle comments of screenshots. 
 
 | Method | Path | Access | Description |
 |---- |-----| -----| ----- |
-| `GET` | `/rating/:id` | User | Get current rating of screenshot with id | 
-| `POST` | `/rating/:id` | USer | Rate a screenshot with id |
 | `GET` | `/comments/:id` | User | Get all comments for screenshot with id |
 | `POST` | `/comments/:id` | User | Add comment to screenshot with id | 
 | `DELETE` | `/comments/:id` | Admin | Delete **comment** with id, only available for admin |
 
-### Current user related
+### Rating
+
+These endpoints are used to handle rating of screenshots. 
+
+| Method | Path | Access | Description |
+|---- |-----| -----| ----- |
+| `GET` | `/ratings/:id` | User | Get current rating of screenshot with id | 
+| `POST` | `/ratings/:id` | USer | Rate a screenshot with id |
+
+### User
 
 This endpoint will allow current user to modify his/her settings. 
 
 | Method | Path | Access | Description |
 | ----- | ----- | ----- | ----- |
-| `GET` | `/user` | User | Give username and list users screenshots |
+| `GET` | `/user` | User | Give (current users) username |
+| `GET` | `/user/screenshots` | User | List (current)users screenshots |
 | `PUT` | `/user` | User | Update profile (username & password) | 
-| `DELETE` | `/user/:id` | Admin | Allows Admin-level users to delete other accounts | 
+
+### Users
+
+This endpoint is mainly for administrative user. It allows admin to delete accounts. (This endpoint might be left out from final product)
+
+| Method | Path | Access | Description |
+| ----- | ----- | ----- | ----- |
+| `DELETE` | `/users/:id` | Admin | Allows Admin-level users to delete other accounts | 
 
 
