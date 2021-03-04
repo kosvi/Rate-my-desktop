@@ -20,7 +20,7 @@ public class Screenshot {
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "userID")
-	private User user;
+	private UserDTO user;
 
 	@Size(min = 5, max = 100)
 	private String screenshotName;
@@ -33,7 +33,7 @@ public class Screenshot {
 
 	}
 
-	public Screenshot(User user, String name, String filename) {
+	public Screenshot(UserDTO user, String name, String filename) {
 		super();
 		this.user = user;
 		this.screenshotName = name;
@@ -48,11 +48,11 @@ public class Screenshot {
 		this.screenshotID = screenshotID;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 

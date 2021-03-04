@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import eu.codecache.rmd.model.Screenshot;
 
 public interface ScreenshotRepository extends JpaRepository<Screenshot, Long> {
-
+	Screenshot findByScreenshotID(long screenshotID);
 }

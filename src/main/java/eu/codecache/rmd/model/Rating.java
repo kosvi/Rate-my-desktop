@@ -25,7 +25,7 @@ public class Rating {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "userID")
-	private User user;
+	private UserDTO user;
 
 	@NotNull
 	@Min(1)
@@ -36,7 +36,7 @@ public class Rating {
 
 	}
 
-	public Rating(Screenshot screenshot, User user, int rating) {
+	public Rating(Screenshot screenshot, UserDTO user, int rating) {
 		super();
 		this.screenshot = screenshot;
 		this.user = user;
@@ -59,11 +59,11 @@ public class Rating {
 		this.screenshot = screenshot;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 

@@ -28,7 +28,7 @@ public class Comment {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "userID")
-	private User user;
+	private UserDTO user;
 
 	@Size(min = 1, max = 255)
 	private String comment;
@@ -41,7 +41,7 @@ public class Comment {
 
 	}
 
-	public Comment(Screenshot screenshot, User user, String comment) {
+	public Comment(Screenshot screenshot, UserDTO user, String comment) {
 		this.screenshot = screenshot;
 		this.user = user;
 		this.comment = comment;
@@ -64,11 +64,11 @@ public class Comment {
 		this.screenshot = screenshot;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 

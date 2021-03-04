@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import eu.codecache.rmd.model.User;
+import eu.codecache.rmd.model.UserDTO;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<UserDTO, Long> {
 	
-	List<User> findByUsername(String username);
+	UserDTO findByUsername(String username);
 
 }

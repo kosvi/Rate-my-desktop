@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+public class UserDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userID;
@@ -29,11 +29,11 @@ public class User {
 	@Size(min = 5, max = 200)
 	private String password;
 
-	public User() {
+	public UserDTO() {
 
 	}
 
-	public User(UserLevel level, String username, String password) {
+	public UserDTO(UserLevel level, String username, String password) {
 		super();
 		this.level = level;
 		this.username = username;
