@@ -29,10 +29,9 @@ public class RmdApplication {
 			CommentRepository cRepo) {
 		return (args) -> {
 			System.out.println("CommandLineRunner ajetaan");
-			PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 			ulRepo.save(new UserLevel("Admin", "ADMIN"));
 			ulRepo.save(new UserLevel("User", "USER"));
-			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "ville", passwordEncoder.encode("ville")));
+			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "ville", "$2a$10$wHhyIY3iLDPLO7Z7kRZI4OQaX6fPAT3teB6iMI0k3gqTgWG1o32uK"));
 			ssRepo.save(new Screenshot(uRepo.findByUsername("ville"), "Testikuva", "123456789.png"));
 			ssRepo.save(new Screenshot(uRepo.findByUsername("ville"), "Vihreä teema", "foobar.jpg"));
 			

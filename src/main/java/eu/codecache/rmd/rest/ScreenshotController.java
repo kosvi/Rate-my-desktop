@@ -1,5 +1,6 @@
 package eu.codecache.rmd.rest;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Random;
 
@@ -11,13 +12,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.codecache.rmd.model.Screenshot;
+import eu.codecache.rmd.model.UserDTO;
 import eu.codecache.rmd.repositories.ScreenshotRepository;
+import eu.codecache.rmd.repositories.UserRepository;
 
 @RestController
 public class ScreenshotController {
 
 	@Autowired
 	private ScreenshotRepository ssRepo;
+
+	@Autowired
+	private UserRepository uRepo;
 
 	private final String API_BASE = "/api/screenshots";
 
@@ -46,5 +52,19 @@ public class ScreenshotController {
 	private List<Screenshot> getScreenshots() {
 		List<Screenshot> screenshots = ssRepo.findAll();
 		return screenshots;
+	}
+
+	@RequestMapping(value = API_BASE + "/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody Screenshot deleteScreenshot(@PathVariable("id") Long screenshotID, Principal principal) {
+		// Let's see if the user is logged in
+		UserDTO user = uRepo.findByUsername(principal.getName());
+		Screenshot ss = ssRepo.findByScreenshotID(screenshotID);
+		if (user.getUserID() == ss.getUser().getUserID()) {
+			// User is the owner
+			ssRepo.delete(ss);
+		} else {
+			return ss;
+		}
+		return new Screenshot(user, "Deleted!!!", "Deleted!!!");
 	}
 }
