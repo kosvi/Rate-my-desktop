@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	lang="en">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div>
+		<form th:object="${userDTO}" th:action="@{register}" action="#"
+			method="post">
+			<div th:if="${nameTaken}">Username already taken</div>
+			<table>
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" id="username" th:field="*{username}" /></td>
+					<td th:if="${#fields.hasErrors('username')}"
+						th:errors="*{username}">Username error</td>
+
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" id="password"
+						th:field="*{password}" /></td>
+					<td th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}">Password error</td>
+
+				</tr>
+				<tr>
+					<td>Retype Password:</td>
+					<td><input type="password" id="password2"
+						th:field="*{password2}" /></td>
+					<td><p th:if="${passwordNoMatch}">Passwords didn't match</p></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input type="submit" value="register" /></td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

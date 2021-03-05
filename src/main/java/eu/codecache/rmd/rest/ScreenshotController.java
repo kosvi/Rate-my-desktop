@@ -27,6 +27,9 @@ public class ScreenshotController {
 
 	private final String API_BASE = "/api/screenshots";
 
+	/*
+	 * Simply fetch ALL screenshots from database and return one random line from the list
+	 */
 	@RequestMapping(value = API_BASE + "/random", method = RequestMethod.GET)
 	public @ResponseBody Screenshot randomScreenshot() {
 		List<Screenshot> screenshots = this.getScreenshots();
@@ -39,6 +42,7 @@ public class ScreenshotController {
 	public @ResponseBody Screenshot getScreenshot(@PathVariable("id") Long screenshotID) {
 		/*
 		 * For now we don't handle the situation where ID isn't found from database.
+		 * (added as issue on GitHub)
 		 */
 		Screenshot ss = ssRepo.findByScreenshotID(screenshotID);
 		return ss;

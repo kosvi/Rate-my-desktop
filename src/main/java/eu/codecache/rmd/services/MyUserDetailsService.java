@@ -24,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDTO user = uRepo.findByUsername(username);
-		UserDetails details = new User(user.getUsername(), user.getPassword(),
+		UserDetails details = new User(user.getUsername(), user.getPasswordHash(),
 				AuthorityUtils.createAuthorityList(user.getLevel().getValue()));
 		return details;
 	}

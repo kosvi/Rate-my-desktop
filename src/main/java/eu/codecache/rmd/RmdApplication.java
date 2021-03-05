@@ -31,13 +31,13 @@ public class RmdApplication {
 			System.out.println("CommandLineRunner ajetaan");
 			ulRepo.save(new UserLevel("Admin", "ADMIN"));
 			ulRepo.save(new UserLevel("User", "USER"));
-			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "ville", "$2a$10$wHhyIY3iLDPLO7Z7kRZI4OQaX6fPAT3teB6iMI0k3gqTgWG1o32uK"));
-			ssRepo.save(new Screenshot(uRepo.findByUsername("ville"), "Testikuva", "123456789.png"));
-			ssRepo.save(new Screenshot(uRepo.findByUsername("ville"), "Vihreä teema", "foobar.jpg"));
-			
-			// Add users
-//			UserDTO details = uRepo.findByUsername("ville");
-//			UserDetails user = new User(details.getUsername(), details.getPassword(), getAuthorities(details.getLevel().getValue()));
+			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "user",
+					"$2a$10$wHhyIY3iLDPLO7Z7kRZI4OQaX6fPAT3teB6iMI0k3gqTgWG1o32uK"));
+			UserDTO user2 = new UserDTO(ulRepo.findByValue("ADMIN"), "yllapito", "yllapito1", "yllapito1");
+			user2.encodePassword();
+			uRepo.save(user2);
+			ssRepo.save(new Screenshot(uRepo.findByUsername("user"), "Testikuva", "123456789.png"));
+			ssRepo.save(new Screenshot(uRepo.findByUsername("user"), "Vihreä teema", "foobar.jpg"));
 		};
 	}
 
