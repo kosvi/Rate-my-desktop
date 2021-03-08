@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	lang="en">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div id="screenshot"></div>
+	<h1 id="screenshotTitle"></h1>
+	<div id="comments">
+		<p th:if="${name}">[[${name}]]</p>
+	</div>
+
+
+	<script src="screenshot.js"></script>
+</body>
+</html>

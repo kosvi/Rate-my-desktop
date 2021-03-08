@@ -1,5 +1,7 @@
 package eu.codecache.rmd.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,38 @@ public class WebController {
 	@Autowired
 	private UserLevelRepository ulRepo;
 
+	// Screenshots are found from the root. Username is send to model
+	// if user is logged in
+	@GetMapping("/")
+	public String screenshot(Model model, Principal principal) {
+		if (principal != null) {
+			model.addAttribute("name", principal.getName());
+		} else {
+			model.addAttribute("name", false);
+		}
+		return "screenshot";
+	}
+
+	// We also want to serve the profile page to change password & upload
+	// screenshots
+	@GetMapping("/profile")
+	public String profile(Model model, Principal principal) {
+		String username = principal.getName();
+		UserDTO user = uRepo.findByUsername(username);
+		if (user != null) {
+			// we got a user, that's great!
+			model.addAttribute("username", user.getUsername());
+		} else {
+			// I don't know why we didn't get a user from database
+			// since this method should never be run unless the
+			// maker of the request is logged in!
+			model.addAttribute("username", false);
+		}
+		return "profile";
+	}
+
+	// This is just a test path, it shouldn't cause harm in production
+	// so let's keep it for now
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
@@ -47,8 +81,8 @@ public class WebController {
 		}
 		// Now we want to see if the username is already in use
 		UserDTO existing = uRepo.findByUsername(userDTO.getUsername());
-		if(existing!=null) {
-			if(existing.getUsername().equalsIgnoreCase(userDTO.getUsername())) {
+		if (existing != null) {
+			if (existing.getUsername().equalsIgnoreCase(userDTO.getUsername())) {
 				// this username already exists in the database
 				model.addAttribute("nameTaken", true);
 				return "register";

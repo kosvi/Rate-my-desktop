@@ -24,7 +24,7 @@ public class UserDTO {
 	@JoinColumn(name = "levelID")
 	private UserLevel level;
 
-	@Size(min = 5, max = 100)
+	@Size(min = 3, max = 100)
 	private String username;
 
 	@Size(min = 5, max = 200)

@@ -28,7 +28,8 @@ public class ScreenshotController {
 	private final String API_BASE = "/api/screenshots";
 
 	/*
-	 * Simply fetch ALL screenshots from database and return one random line from the list
+	 * Simply fetch ALL screenshots from database and return one random line from
+	 * the list
 	 */
 	@RequestMapping(value = API_BASE + "/random", method = RequestMethod.GET)
 	public @ResponseBody Screenshot randomScreenshot() {
