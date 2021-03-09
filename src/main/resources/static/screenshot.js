@@ -1,2 +1,2 @@
 var kentta = document.getElementById('screenshot');
-kentta.innerHTML = "foobar";
+kentta.innerHTML = "<img src=\"test/test.png\" style=\"max-width: 30%\" />";

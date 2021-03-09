@@ -1,5 +1,7 @@
 package eu.codecache.rmd;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import eu.codecache.rmd.model.Rating;
 import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
 import eu.codecache.rmd.model.UserLevel;
 import eu.codecache.rmd.repositories.CommentRepository;
+import eu.codecache.rmd.repositories.RatingRepository;
 import eu.codecache.rmd.repositories.ScreenshotRepository;
 import eu.codecache.rmd.repositories.UserLevelRepository;
 import eu.codecache.rmd.repositories.UserRepository;
@@ -26,7 +30,7 @@ public class RmdApplication {
 
 	@Bean
 	public CommandLineRunner h2Filler(UserLevelRepository ulRepo, UserRepository uRepo, ScreenshotRepository ssRepo,
-			CommentRepository cRepo) {
+			CommentRepository cRepo, RatingRepository rRepo) {
 		return (args) -> {
 			System.out.println("CommandLineRunner ajetaan");
 			ulRepo.save(new UserLevel("Admin", "ADMIN"));
@@ -38,6 +42,9 @@ public class RmdApplication {
 			uRepo.save(user2);
 			ssRepo.save(new Screenshot(uRepo.findByUsername("user"), "Testikuva", "123456789.png"));
 			ssRepo.save(new Screenshot(uRepo.findByUsername("user"), "Vihreä teema", "foobar.jpg"));
+			List<Screenshot> screenshots = ssRepo.findAll();
+			rRepo.save(new Rating(screenshots.get(0), uRepo.findByUsername("user"), 3));
+			rRepo.save(new Rating(screenshots.get(1), uRepo.findByUsername("user"), 3));
 		};
 	}
 
