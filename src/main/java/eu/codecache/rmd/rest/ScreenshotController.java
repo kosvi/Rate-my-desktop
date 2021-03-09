@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import eu.codecache.rmd.model.Comment;
 import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
+import eu.codecache.rmd.repositories.CommentRepository;
 import eu.codecache.rmd.repositories.RatingRepository;
 import eu.codecache.rmd.repositories.ScreenshotRepository;
 import eu.codecache.rmd.repositories.UserRepository;
@@ -27,11 +29,20 @@ public class ScreenshotController {
 		private long id;
 		private String name;
 		private double rating;
+		private List<Comment> comments;
 
-		public SingleShot(long id, String n, double r) {
+		public SingleShot(Screenshot ss, double r, List<Comment> c) {
+			this.id = ss.getScreenshotID();
+			this.name = ss.getScreenshotName();
+			this.rating = r;
+			this.comments = c;
+		}
+
+		public SingleShot(long id, String n, double r, List<Comment> c) {
 			this.id = id;
 			this.name = n;
 			this.rating = r;
+			this.comments = c;
 		}
 
 		public long getId() {
@@ -57,6 +68,14 @@ public class ScreenshotController {
 		public void setRating(double rating) {
 			this.rating = rating;
 		}
+
+		public List<Comment> getComments() {
+			return comments;
+		}
+
+		public void setComments(List<Comment> comments) {
+			this.comments = comments;
+		}
 	}
 
 	@Autowired
@@ -68,6 +87,9 @@ public class ScreenshotController {
 	@Autowired
 	private UserRepository uRepo;
 
+	@Autowired
+	private CommentRepository cRepo;
+
 	private final String API_BASE = "/api/screenshots";
 
 	/*
@@ -75,11 +97,13 @@ public class ScreenshotController {
 	 * the list
 	 */
 	@RequestMapping(value = API_BASE + "/random", method = RequestMethod.GET)
-	public @ResponseBody Screenshot randomScreenshot() {
+	public @ResponseBody SingleShot randomScreenshot() {
 		List<Screenshot> screenshots = this.getScreenshots();
 		Random r = new Random();
 		int randomIndex = r.nextInt(screenshots.size());
-		return screenshots.get(randomIndex);
+		double rating = rRepo.avg(screenshots.get(randomIndex));
+		List<Comment> comments = cRepo.findByScreenshot(screenshots.get(randomIndex));
+		return new SingleShot(screenshots.get(randomIndex), rating, comments);
 	}
 
 	@RequestMapping(value = API_BASE + "/{id}", method = RequestMethod.GET)
@@ -89,8 +113,9 @@ public class ScreenshotController {
 		 * (added as issue on GitHub)
 		 */
 		Screenshot ss = ssRepo.findByScreenshotID(screenshotID);
-		double rating = rRepo.avg(screenshotID);
-		return new SingleShot(ss.getScreenshotID(), ss.getScreenshotName(), rating);
+		double rating = rRepo.avg(ss);
+		List<Comment> comments = cRepo.findByScreenshot(ss);
+		return new SingleShot(ss.getScreenshotID(), ss.getScreenshotName(), rating, comments);
 	}
 
 	@RequestMapping(value = API_BASE, method = RequestMethod.GET)

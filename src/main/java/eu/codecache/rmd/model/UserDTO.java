@@ -28,9 +28,12 @@ public class UserDTO {
 	private String username;
 
 	@Size(min = 5, max = 200)
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
 	private String password2;
 
+	@JsonIgnore
 	private String passwordHash;
 
 	public boolean encodePassword() {

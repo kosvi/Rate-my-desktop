@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import eu.codecache.rmd.model.Comment;
 import eu.codecache.rmd.model.Rating;
 import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
@@ -45,6 +46,10 @@ public class RmdApplication {
 			List<Screenshot> screenshots = ssRepo.findAll();
 			rRepo.save(new Rating(screenshots.get(0), uRepo.findByUsername("user"), 3));
 			rRepo.save(new Rating(screenshots.get(1), uRepo.findByUsername("user"), 3));
+			rRepo.save(new Rating(screenshots.get(1), uRepo.findByUsername("user"), 2));
+			cRepo.save(new Comment(screenshots.get(0), uRepo.findByUsername("user"), "Test comment"));
+			cRepo.save(new Comment(screenshots.get(0), uRepo.findByUsername("user"), "Test comment"));
+			cRepo.save(new Comment(screenshots.get(1), uRepo.findByUsername("user"), "Test comment"));
 		};
 	}
 

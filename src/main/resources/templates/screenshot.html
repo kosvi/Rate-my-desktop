@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div id="screenshot"></div>
+	<div id="rating"></div>
 	<h1 id="screenshotTitle"></h1>
 	<div id="comments">
 		<p th:if="${name}">[[${name}]]</p>
@@ -17,5 +18,8 @@
 
 
 	<script src="screenshot.js"></script>
+	<script>
+	setRandom();
+	</script>
 </body>
 </html>
