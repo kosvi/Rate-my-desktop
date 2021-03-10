@@ -7,6 +7,7 @@
 - [Wireframes](#Wireframes)
 - [Database](#Database)
 - [Api](#Api)
+- [Frontend](#Frontend)
 
 ## Description
 
@@ -18,15 +19,15 @@ Project has to be done using Spring Boot and webpages have to be rendered using 
 
 ## User stories
 
-| id | description |
-|----|----         |
-| 1  | As a user, I want to be able to create account without handing personal information as I want to be sure of how my information is stored |
+| id | description | status |
+|----|----         |---- |
+| 1  | As a user, I want to be able to create account without handing personal information as I want to be sure of how my information is stored | done |
 | 2 | As a user, I want to be able to post my screenshot to the site to get comments about it |
 | 3 | As a user, I want to be able to easily find my screenshots to see their ratings and read their comments. 
 | 4 | As a user, I want to be able to comments other peoples screenshots so they can read what I like about them (or don't like about them). |
 | 5 | As a user, I want to be able to change my account name and password in case I think my password is compromised |
-| 6 | As a user, I want to be able to delete screenshots I've uploaded in case I accidentally upload wrong pic or notice something I don't want others to see in it. 
-| 7 | As a user, I want others to be able to rate my screenshot so I know it it's cool or not |
+| 6 | As a user, I want to be able to delete screenshots I've uploaded in case I accidentally upload wrong pic or notice something I don't want others to see in it. |
+| 7 | As a user, I want others to be able to rate my screenshot so I know it it's cool or not | done |
 | 8 | As an admin, I want to be able to delete screenshots in case there is something inappropriate in it. |
 | 9 | As an admin, I want to be able to delete individual comments in case there is something inappropriate in it. | 
 | 10 | As an admin, I want to be able to lock accounts in case they keep on harrassing others |
@@ -148,4 +149,19 @@ This endpoint is mainly for administrative user. It allows admin to delete accou
 | ----- | ----- | ----- | ----- |
 | `DELETE` | `/users/:id` | Admin | Allows Admin-level users to delete other accounts | 
 
+
+## Frontend
+
+As said, frontend is done with Thymeleaf templates. Alot of frontend functionality is done using (Vanilla) Javascript. Vanilla, because it's much faster to hack together some kind of frontend to test the backend. Again: this is backend-course, I glued together the frontend in an hour or so. 
+
+#### Frontend paths
+
+| path | access | description |
+|----|-----|-----|
+| `/` | open | displays a random screenshot, logged in users can rate & see comments |
+| `/:id` | login required | displays screenshot with given :id and allows rating & commenting |
+| `/register` | open | allows creation of an account | 
+| `/login` | open | allows user to login | 
+| `/logout` | open | allows user to logout | 
+| `/profile` | login required | allows changing password and uploading/deleting screenshots | 
 
