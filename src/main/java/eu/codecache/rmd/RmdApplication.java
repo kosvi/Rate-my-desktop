@@ -38,6 +38,8 @@ public class RmdApplication {
 			ulRepo.save(new UserLevel("User", "USER"));
 			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "user",
 					"$2a$10$wHhyIY3iLDPLO7Z7kRZI4OQaX6fPAT3teB6iMI0k3gqTgWG1o32uK"));
+			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "test",
+					"$2a$10$wHhyIY3iLDPLO7Z7kRZI4OQaX6fPAT3teB6iMI0k3gqTgWG1o32uK"));
 			UserDTO user2 = new UserDTO(ulRepo.findByValue("ADMIN"), "yllapito", "yllapito1", "yllapito1");
 			user2.encodePassword();
 			uRepo.save(user2);

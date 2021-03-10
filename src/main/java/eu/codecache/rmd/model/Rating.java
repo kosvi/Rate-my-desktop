@@ -27,19 +27,23 @@ public class Rating {
 	@JoinColumn(name = "userID")
 	private UserDTO user;
 
-	@NotNull
-	@Min(1)
-	@Max(5)
+//	@NotNull
+//	@Min(1)
+//	@Max(5)
 	private int rating;
 
 	public Rating() {
 
 	}
 
-	public Rating(Screenshot screenshot, UserDTO user, int rating) {
+	public Rating(Screenshot screenshot, UserDTO user) {
 		super();
 		this.screenshot = screenshot;
 		this.user = user;
+	}
+
+	public Rating(Screenshot screenshot, UserDTO user, int rating) {
+		this(screenshot, user);
 		this.rating = rating;
 	}
 
@@ -74,7 +78,5 @@ public class Rating {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	
-	
-	
+
 }

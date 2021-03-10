@@ -30,8 +30,10 @@ public class WebController {
 	public String screenshot(Model model, Principal principal) {
 		if (principal != null) {
 			model.addAttribute("name", principal.getName());
+			model.addAttribute("loggedIn", true);
 		} else {
 			model.addAttribute("name", false);
+			model.addAttribute("loggedIn", false);
 		}
 		return "screenshot";
 	}
