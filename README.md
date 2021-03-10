@@ -128,7 +128,7 @@ These endpoints are used to handle rating of screenshots.
 | Method | Path | Access | Description |
 |---- |-----| -----| ----- |
 | `GET` | `/ratings/:id` | User | Get current rating of screenshot with id | 
-| `GET` | `/ratings/:id/rate?newValue=:value` | User | Rate a screenshot with id |
+| `GET` | `/ratings/rate/:id?newValue=:value` | User | Rate a screenshot with id |
 
 ### User
 

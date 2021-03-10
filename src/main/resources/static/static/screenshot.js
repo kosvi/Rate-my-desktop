@@ -47,11 +47,32 @@ function createRatingButton(id, value, myValue) {
 }
 
 async function updateRating(id, value) {
-	const url = "/api/ratings/rate/" + id + "?newValue="  + value;
+	const url = "/api/ratings/rate/" + id + "?newValue=" + value;
 	const newRating = await getData(url);
 	console.log(newRating);
 	document.getElementById('rateButtons').innerHTML = "";
 	createRateButtons(id, newRating.rating);
+}
+
+async function showScreenshot(id, loggedIn) {
+	if (id <= 0) {
+		await setRandom();
+	}
+	else {
+		await setWithId(id);
+	}
+	if (loggedIn) {
+		document.getElementById('rate').style.display = 'block';
+		document.getElementById('comments').style.display = 'block';
+	}
+}
+
+async function setWithId(id) {
+	const screenshotData = await getData("/api/screenshots/" + id);
+	const userRating = await getData("/api/ratings/" + id);
+	setScreenshot(0);
+	setRating(screenshotData.rating, screenshotData.id, screenshotData.name, userRating.rating);
+	setComments(screenshotData.comments);
 }
 
 async function setRandom() {

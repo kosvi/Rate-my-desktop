@@ -9,10 +9,10 @@
 </head>
 <body>
 	<div id="nav">
-		<a href="/login" th:if="${!loggedIn}">Login</a>
-		<a href="/register" th:if="${!loggedIn}">Register</a>
-		<a href="/profile" th:if="${loggedIn}">[[${name}]]</a>
-		<a href="/logout" th:if="${loggedIn}">Logout</a>
+		<a href="/login" th:if="${!loggedIn}">Login</a> <a href="/register"
+			th:if="${!loggedIn}">Register</a> <a href="/profile"
+			th:if="${loggedIn}">[[${name}]]</a> <a href="/logout"
+			th:if="${loggedIn}">Logout</a>
 	</div>
 	<div id="content">
 		<div id="screenshot"></div>
@@ -25,7 +25,7 @@
 
 	<script src="static/screenshot.js"></script>
 	<script>
-		setRandom();
+		showScreenshot([[${ssID}]], [[${loggedIn}]]);
 	</script>
 </body>
 </html>

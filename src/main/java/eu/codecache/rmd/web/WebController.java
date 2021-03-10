@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eu.codecache.rmd.model.UserDTO;
@@ -28,6 +29,7 @@ public class WebController {
 	// if user is logged in
 	@GetMapping("/")
 	public String screenshot(Model model, Principal principal) {
+		model.addAttribute("ssID", 0);
 		if (principal != null) {
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("loggedIn", true);
@@ -36,6 +38,20 @@ public class WebController {
 			model.addAttribute("loggedIn", false);
 		}
 		return "screenshot";
+	}
+
+	// and if we add id to path, we get specific screenshot
+	// (for logged in users only)
+	@GetMapping("/{id}")
+	public String screenshotByID(@PathVariable("id") Long screenshotID, Model model, Principal principal) {
+		if (principal != null) {
+			model.addAttribute("ssID", screenshotID);
+			model.addAttribute("name", principal.getName());
+			model.addAttribute("loggedIn", true);
+			return "screenshot";
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	// We also want to serve the profile page to change password & upload
