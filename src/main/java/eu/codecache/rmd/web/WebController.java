@@ -1,18 +1,26 @@
 package eu.codecache.rmd.web;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
+import eu.codecache.rmd.repositories.ScreenshotRepository;
 import eu.codecache.rmd.repositories.UserLevelRepository;
 import eu.codecache.rmd.repositories.UserRepository;
 
@@ -24,6 +32,11 @@ public class WebController {
 	private UserRepository uRepo;
 	@Autowired
 	private UserLevelRepository ulRepo;
+	@Autowired
+	private ScreenshotRepository ssRepo;
+
+	@Value("${upload.path}")
+	private String UPLOAD_FOLDER;
 
 	// Screenshots are found from the root. Username is send to model
 	// if user is logged in
@@ -68,6 +81,35 @@ public class WebController {
 			// since this method should never be run unless the
 			// maker of the request is logged in!
 			model.addAttribute("username", false);
+		}
+		return "profile";
+	}
+
+	@PostMapping("/upload")
+	public String uploadScreenshot(@RequestParam("file") MultipartFile file, @RequestParam("name") String name,
+			Principal principal, Model model) {
+		// this attribute is used to check if we need to show the message or not
+		model.addAttribute("upload", true);
+		if (file.isEmpty()) {
+			// handle case, where upload failed
+			model.addAttribute("message", "Upload failed");
+			return "profile";
+		}
+		// this is a magic number, let's fix that later... Im so lazy :)
+		if (name.length() < 3) {
+			model.addAttribute("message", "Name is too short");
+			return "profile";
+		}
+		Screenshot ss = new Screenshot(uRepo.findByUsername(principal.getName()), name, "");
+		Screenshot newSS = ssRepo.save(ss);
+		try {
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(UPLOAD_FOLDER + newSS.getScreenshotID());
+			Files.write(path, bytes);
+			model.addAttribute("message", "Upload successfull");
+		} catch (Exception e) {
+			// we need to handle error, more technological debt thank you sir
+			model.addAttribute("message", "Upload failed");
 		}
 		return "profile";
 	}

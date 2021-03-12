@@ -92,3 +92,11 @@ html, body {
 	content: ">";
 	color: #000;
 }
+
+.smallTitle {
+	font-weight: bold;
+}
+
+.uploadMessage {
+	color: #f00;
+}
