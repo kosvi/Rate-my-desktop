@@ -6,6 +6,7 @@ the backend actually works. So sorry, this isn't really nice and clean code here
 */
 
 function setScreenshot(ssID) {
+	document.getElementById('screenshotID').value = ssID;
 	const ssDiv = document.getElementById('screenshot');
 	ssDiv.innerHTML = "<img src=\"test/test.png\" />";
 }
@@ -27,9 +28,15 @@ function createRateButtons(id, myRating) {
 
 function setComments(ssComments) {
 	const commentDiv = document.getElementById('comments');
+	commentDiv.innerHTML = "";
 	for (let i = 0; i < ssComments.length; i++) {
-		commentDiv.innerHTML += "<p class=\"comment\"><span class=\"cUser\">" + ssComments[i].user.username + "</span> " + ssComments[i].comment + "</p>";
+		const date = new Date(ssComments[i].timestamp);
+		commentDiv.innerHTML += "<p class=\"comment\">" + makeTimestamp(date) + "<span class=\"cUser\">" + ssComments[i].user.username + "</span> " + ssComments[i].comment + "</p>";
 	}
+}
+
+function makeTimestamp(date) {
+	return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 }
 
 function createRatingButton(id, value, myValue) {
@@ -54,36 +61,55 @@ async function updateRating(id, value) {
 	createRateButtons(id, newRating.rating);
 }
 
-async function showScreenshot(id, loggedIn) {
+async function showScreenshot(id) {
 	if (id <= 0) {
 		await setRandom();
 	}
 	else {
 		await setWithId(id);
 	}
+}
+
+function displayElements(loggedIn) {
 	if (loggedIn) {
 		document.getElementById('rate').style.display = 'block';
 		document.getElementById('comments').style.display = 'block';
+		document.getElementById('newComment').style.display = 'block';
 	}
 }
 
 async function setWithId(id) {
 	const screenshotData = await getData("/api/screenshots/" + id);
 	const userRating = await getData("/api/ratings/" + id);
-	setScreenshot(0);
-	setRating(screenshotData.rating, screenshotData.id, screenshotData.name, userRating.rating);
+	setScreenshot(screenshotData.id);
+	var rating;
+	if (userRating == null) {
+		rating = -1;
+	}
+	else {
+		rating = userRating.rating;
+	}
+	setRating(screenshotData.rating, screenshotData.id, screenshotData.name, rating);
 	setComments(screenshotData.comments);
 }
 
 async function setRandom() {
 	const screenshotData = await getData("/api/screenshots/random");
 	const userRating = await getData("/api/ratings/" + screenshotData.id);
-	setScreenshot(0);
-	setRating(screenshotData.rating, screenshotData.id, screenshotData.name, userRating.rating);
+	setScreenshot(screenshotData.id);
+	var rating;
+	if (userRating == null) {
+		rating = -1;
+	}
+	else {
+		rating = userRating.rating;
+	}
+	setRating(screenshotData.rating, screenshotData.id, screenshotData.name, rating);
 	setComments(screenshotData.comments);
 }
 
 async function getData(url) {
+	console.log("Fetching url: " + url);
 	try {
 		const response = await fetch(url);
 		const responseJson = await response.json();
@@ -93,3 +119,37 @@ async function getData(url) {
 		return null;
 	}
 }
+
+async function postData(url, body) {
+	try {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-type': 'Application/json',
+			},
+			body: JSON.stringify(body),
+		});
+		const responseJson = await response.json();
+		return responseJson;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+}
+
+async function addComment() {
+	const comment = document.getElementById('commentText').value;
+	document.getElementById('commentText').value = "";
+	if (comment.length  < 2) {
+		return;
+	}
+	const ssID = document.getElementById('screenshotID').value;
+	var body = { "comment": comment };
+	const comments = await postData("/api/comments/" + ssID, body);
+	setComments(comments);
+}
+
+
+
+
+

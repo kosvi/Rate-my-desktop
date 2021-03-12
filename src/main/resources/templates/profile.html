@@ -5,14 +5,40 @@
 	lang="en">
 <head>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
-	th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="static/style.css" />
 </head>
 <body>
-	<h1 th:if="${username}">[[${username}]]</h1>
-	<div>Profile settings</div>
-	<div id="screenshotlist"></div>
+	<div id="nav">
+		<a href="/">Random screenshot</a>
+	</div>
+	<div id="content">
+		<h1 th:if="${username}">[[${username}]]</h1>
+		<div>
+			<p>Change password</p>
+			<form action="/api/user" method="post">
+				<table>
+					<tr>
+						<td>Old password:</td>
+						<td><input type="password" id="oldPassword" name="oldPassword" />
+					</tr>
+					<tr>
+						<td>New password:</td>
+						<td><input type="password" id="password" name="password" /></td>
+					</tr>
+					<tr>
+						<td>Retype new password:</td>
+						<td><input type="password" id="password2" name="password2" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><input type="submit" value="Update" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="screenshotlist"></div>
+	</div>
 
-	<script src="profile.js"></script>
+	<script src="static/profile.js"></script>
 </body>
 </html>

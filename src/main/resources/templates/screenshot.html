@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div id="nav">
-		<a href="/login" th:if="${!loggedIn}">Login</a> <a href="/register"
+		<a href="javascript:void(0)" id="nextSS">next screenshot</a> <a
+			href="/login" th:if="${!loggedIn}">Login</a> <a href="/register"
 			th:if="${!loggedIn}">Register</a> <a href="/profile"
 			th:if="${loggedIn}">[[${name}]]</a> <a href="/logout"
 			th:if="${loggedIn}">Logout</a>
@@ -20,12 +21,27 @@
 		<div id="rate"></div>
 		<h1 id="screenshotTitle"></h1>
 		<div id="comments"></div>
+		<div id="newComment">
+			<input type="text" id="commentText" /> <input type="hidden"
+				id="screenshotID" />
+			<button id="sendComment">Send</button>
+		</div>
 	</div>
 
 
 	<script src="static/screenshot.js"></script>
 	<script>
-		showScreenshot([[${ssID}]], [[${loggedIn}]]);
+		async function loadOnStartup() {
+			await showScreenshot([[${ssID}]]);
+			displayElements([[${loggedIn}]]);
+		}
+		loadOnStartup();
+		document.getElementById("nextSS").addEventListener("click", () => {
+			showScreenshot(0);
+		});
+		document.getElementById("sendComment").addEventListener("click", () => {
+			addComment();
+		});
 	</script>
 </body>
 </html>

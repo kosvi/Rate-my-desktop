@@ -69,6 +69,12 @@ html, body {
 	display: none;
 }
 
+#newComment {
+	text-align: left;
+	padding-left: 0.4em;
+	display: none;
+}
+
 #comments .comment {
 	margin-top: 0.2em;
 }

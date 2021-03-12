@@ -39,7 +39,7 @@ public class RatingController {
 	 * not logged in, rating value 0 is returned with empty user.
 	 */
 	@RequestMapping(value = API_BASE + "/{id}", method = RequestMethod.GET)
-	public @ResponseBody Rating getRatings(@PathVariable("id") Long screenshotID, Principal principal) {
+	public @ResponseBody Rating getRating(@PathVariable("id") Long screenshotID, Principal principal) {
 		// This is how I check login at the moment
 		if (principal == null) {
 			// if no screenshot with that id is found, null is returned (and that is fine

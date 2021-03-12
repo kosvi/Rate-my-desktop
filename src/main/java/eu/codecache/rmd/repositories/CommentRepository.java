@@ -11,4 +11,6 @@ import eu.codecache.rmd.model.Screenshot;
 public interface CommentRepository extends CrudRepository<Comment, Long> {
 
 	List<Comment> findByScreenshot(Screenshot screenshot);
+
+	Comment findByCommentID(long commentID);
 }
