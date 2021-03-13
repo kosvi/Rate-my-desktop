@@ -9,6 +9,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
@@ -85,6 +91,9 @@ public class WebController {
 		return "profile";
 	}
 
+	/*
+	 * Still quite some work to be done here!
+	 */
 	@PostMapping("/upload")
 	public String uploadScreenshot(@RequestParam("file") MultipartFile file, @RequestParam("name") String name,
 			Principal principal, Model model) {
@@ -112,6 +121,31 @@ public class WebController {
 			model.addAttribute("message", "Upload failed");
 		}
 		return "profile";
+	}
+
+	/*
+	 * After image upload, we want to be able to show it too...
+	 * https://stackoverflow.com/questions/62825338/how-to-send-image-as-response-in
+	 * -spring-boot
+	 */
+	@GetMapping(value = "/pics/jpeg/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<Resource> jpegScreenshot(@PathVariable("id") Long screenshotID) throws Exception {
+//		final String pathToImageData = ssRepo.findByScreenshotID(screenshotID).getFilename();
+		final String pathToImageData = UPLOAD_FOLDER + screenshotID;
+		final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(pathToImageData)));
+		return ResponseEntity.status(HttpStatus.OK).contentLength(inputStream.contentLength()).body(inputStream);
+	}
+
+	// ...and same for png pics
+	@GetMapping(value = "/pics/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<Resource> pngScreenshot(@PathVariable("id") Long screenshotID) throws Exception {
+		final String pathToImageData = UPLOAD_FOLDER + screenshotID;
+		try {
+			final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(pathToImageData)));
+			return ResponseEntity.status(HttpStatus.OK).contentLength(inputStream.contentLength()).body(inputStream);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// This is just a test path, it shouldn't cause harm in production
