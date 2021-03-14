@@ -105,15 +105,17 @@ public class WebController {
 			return "profile";
 		}
 		// this is a magic number, let's fix that later... Im so lazy :)
-		if (name.length() < 3) {
+		if (name.length() < 5) {
 			model.addAttribute("message", "Name is too short");
 			return "profile";
 		}
+		// save screenshot to repository in order to get an ID for it
 		Screenshot ss = new Screenshot(uRepo.findByUsername(principal.getName()), name, "");
 		Screenshot newSS = ssRepo.save(ss);
 		try {
 			byte[] bytes = file.getBytes();
-			Path path = Paths.get(UPLOAD_FOLDER + newSS.getScreenshotID());
+			// here we use the id of the just added screenshot to generate a filename for it
+			Path path = Paths.get(this.createScreenshotFilename(newSS.getScreenshotID()));
 			Files.write(path, bytes);
 			model.addAttribute("message", "Upload successfull");
 		} catch (Exception e) {
@@ -127,19 +129,13 @@ public class WebController {
 	 * After image upload, we want to be able to show it too...
 	 * https://stackoverflow.com/questions/62825338/how-to-send-image-as-response-in
 	 * -spring-boot
+	 * 
+	 * Source of pretty much just copy&pasted method
 	 */
-	@GetMapping(value = "/pics/jpeg/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
-	public ResponseEntity<Resource> jpegScreenshot(@PathVariable("id") Long screenshotID) throws Exception {
-//		final String pathToImageData = ssRepo.findByScreenshotID(screenshotID).getFilename();
-		final String pathToImageData = UPLOAD_FOLDER + screenshotID;
-		final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(pathToImageData)));
-		return ResponseEntity.status(HttpStatus.OK).contentLength(inputStream.contentLength()).body(inputStream);
-	}
-
-	// ...and same for png pics
 	@GetMapping(value = "/pics/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<Resource> pngScreenshot(@PathVariable("id") Long screenshotID) throws Exception {
-		final String pathToImageData = UPLOAD_FOLDER + screenshotID;
+//		final String pathToImageData = ssRepo.findByScreenshotID(screenshotID).getFilename();
+		final String pathToImageData = this.createScreenshotFilename(screenshotID);
 		try {
 			final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(pathToImageData)));
 			return ResponseEntity.status(HttpStatus.OK).contentLength(inputStream.contentLength()).body(inputStream);
@@ -192,5 +188,12 @@ public class WebController {
 		}
 		model.addAttribute("passwordNoMatch", true);
 		return "register";
+	}
+
+	/*
+	 * generate name for screenshot when you know the ID
+	 */
+	private String createScreenshotFilename(long id) {
+		return UPLOAD_FOLDER + id + ".data";
 	}
 }

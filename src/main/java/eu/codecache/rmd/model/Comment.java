@@ -3,6 +3,7 @@ package eu.codecache.rmd.model;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Comment {
 	private long commentID;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "screenshotID")
 	private Screenshot screenshot;
 

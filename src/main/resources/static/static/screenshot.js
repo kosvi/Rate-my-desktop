@@ -8,12 +8,16 @@ the backend actually works. So sorry, this isn't really nice and clean code here
 function setScreenshot(ssID) {
 	document.getElementById('screenshotID').value = ssID;
 	const ssDiv = document.getElementById('screenshot');
-	ssDiv.innerHTML = "<img src=\"test/test.png\" />";
+	ssDiv.innerHTML = "<img src=\"/pics/" + ssID + "\" />";
 }
 
 function setRating(ssRating, id, name, myRating) {
 	const ratingDiv = document.getElementById('rating');
-	ratingDiv.innerHTML = "" + ssRating + " / 5";
+	if (ssRating > 0) {
+		ratingDiv.innerHTML = "" + ssRating + " / 5";
+	} else {
+		ratingDiv.innerHTML = "not yet rated";
+	}
 	// also set name for the screenshot
 	const rateDiv = document.getElementById('rate');
 	rateDiv.innerHTML = "<p>" + name + "</p><p id=\"rateButtons\"></p>";
@@ -81,7 +85,7 @@ function displayElements(loggedIn) {
 async function setWithId(id) {
 	const screenshotData = await getData("/api/screenshots/" + id);
 	const userRating = await getData("/api/ratings/" + id);
-	setScreenshot(screenshotData.id);
+	setScreenshot(id);
 	var rating;
 	if (userRating == null) {
 		rating = -1;
@@ -140,7 +144,7 @@ async function postData(url, body) {
 async function addComment() {
 	const comment = document.getElementById('commentText').value;
 	document.getElementById('commentText').value = "";
-	if (comment.length  < 2) {
+	if (comment.length < 2) {
 		return;
 	}
 	const ssID = document.getElementById('screenshotID').value;

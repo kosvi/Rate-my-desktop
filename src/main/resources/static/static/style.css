@@ -100,3 +100,16 @@ html, body {
 .uploadMessage {
 	color: #f00;
 }
+
+.deleteScreenshotButton {
+	color: #fff;
+	background: #f00;
+	border: solid 1px #000;
+	display: inline-block;
+	width: 1em;
+	line-height: 1em;
+	height: 1em;
+	border-radius: 0.5em;
+	text-align: center;
+	cursor: pointer;
+}

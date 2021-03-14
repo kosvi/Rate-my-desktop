@@ -101,7 +101,12 @@ public class ScreenshotController {
 		List<Screenshot> screenshots = this.getScreenshots();
 		Random r = new Random();
 		int randomIndex = r.nextInt(screenshots.size());
-		double rating = rRepo.avg(screenshots.get(randomIndex));
+		double rating = -1;
+		try {
+			rating = rRepo.avg(screenshots.get(randomIndex));
+		} catch (Exception e) {
+			// no ratings set yet, we don't have to handle it any better
+		}
 		List<Comment> comments = cRepo.findByScreenshot(screenshots.get(randomIndex));
 		return new SingleShot(screenshots.get(randomIndex), rating, comments);
 	}

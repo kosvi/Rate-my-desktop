@@ -19,5 +19,8 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 	@Query(value="SELECT r FROM Rating r WHERE r.screenshot=?1 AND r.user=?2")
 	public Rating userRating(Screenshot ss, UserDTO user);
 	
+	// We need to delete all ratings by screenshot
+	public void deleteByScreenshot(Screenshot ss);
+	
 	public List<Rating> findRatingsByScreenshot(Screenshot ss);
 }

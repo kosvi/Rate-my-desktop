@@ -22,11 +22,11 @@ Project has to be done using Spring Boot and webpages have to be rendered using 
 | id | description | status |
 |----|----         |---- |
 | 1  | As a user, I want to be able to create account without handing personal information as I want to be sure of how my information is stored | done |
-| 2 | As a user, I want to be able to post my screenshot to the site to get comments about it | in progress | 
+| 2 | As a user, I want to be able to post my screenshot to the site to get comments about it | done | 
 | 3 | As a user, I want to be able to easily find my screenshots to see their ratings and read their comments. | done |
 | 4 | As a user, I want to be able to comments other peoples screenshots so they can read what I like about them (or don't like about them). | done |
 | 5 | As a user, I want to be able to change my account name and password in case I think my password is compromised | done | 
-| 6 | As a user, I want to be able to delete screenshots I've uploaded in case I accidentally upload wrong pic or notice something I don't want others to see in it. |
+| 6 | As a user, I want to be able to delete screenshots I've uploaded in case I accidentally upload wrong pic or notice something I don't want others to see in it. | done |
 | 7 | As a user, I want others to be able to rate my screenshot so I know it it's cool or not | done |
 | 8 | As an admin, I want to be able to delete screenshots in case there is something inappropriate in it. |
 | 9 | As an admin, I want to be able to delete individual comments in case there is something inappropriate in it. | 
@@ -164,4 +164,6 @@ As said, frontend is done with Thymeleaf templates. Alot of frontend functionali
 | `/login` | open | allows user to login | 
 | `/logout` | open | allows user to logout | 
 | `/profile` | login required | allows changing password and uploading/deleting screenshots | 
+| `/pics/:id` | open | screenshot image for screenshot with :id | 
+
 

@@ -1,5 +1,6 @@
 package eu.codecache.rmd.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Rating {
 	private long ratingID;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "screenshotID")
 	private Screenshot screenshot;
 
