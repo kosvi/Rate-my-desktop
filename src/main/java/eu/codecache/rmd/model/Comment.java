@@ -15,6 +15,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Comment {
 
@@ -24,6 +27,7 @@ public class Comment {
 
 	@NotNull
 	@ManyToOne(cascade = CascadeType.REMOVE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "screenshotID")
 	private Screenshot screenshot;
 

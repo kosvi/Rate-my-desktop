@@ -11,6 +11,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Rating {
 
@@ -19,7 +22,8 @@ public class Rating {
 	private long ratingID;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "screenshotID")
 	private Screenshot screenshot;
 

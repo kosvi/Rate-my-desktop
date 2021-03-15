@@ -1,11 +1,15 @@
 package eu.codecache.rmd.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +32,7 @@ public class Screenshot {
 	@JsonIgnore
 //	@Size(min = 10, max = 100)
 	private String filename;
-	
+
 	public Screenshot() {
 
 	}
@@ -71,6 +75,5 @@ public class Screenshot {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
-	
+
 }
