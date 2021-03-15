@@ -29,6 +29,9 @@ class RmdApplicationTests {
 	@Autowired
 	private UserController userController;
 
+	/*
+	 * Test that all controllers are loaded
+	 */
 	@Test
 	void contextLoads() throws Exception {
 		assertThat(webController).isNotNull();
