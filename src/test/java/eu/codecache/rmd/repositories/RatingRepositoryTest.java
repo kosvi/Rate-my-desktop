@@ -14,6 +14,7 @@ import eu.codecache.rmd.model.UserLevel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -29,6 +30,18 @@ public class RatingRepositoryTest {
 	private UserLevelRepository ulRepo;
 	@Autowired
 	private ScreenshotRepository ssRepo;
+	
+	/*
+	 * Test getting a rating for specific screenshot from specific user
+	 */
+	@Test
+	public void getRatingFromUser() {
+		// We kinda depend on the @BeforeEach method here, so change it and you need to
+		// change this too
+		Rating rating = rRepo.userRating(ssRepo.findByScreenshotName("Screenshot1"), uRepo.findByUsername("username"));
+		assertThat(rating).isNotNull();
+		assertEquals(rating.getRating(), 1);
+	}
 
 	/*
 	 * Let's test that our repository calculates average rating correctly
