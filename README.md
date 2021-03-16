@@ -102,50 +102,52 @@ Database relation model: [Relationmodel.svg](Docs/Database/Relationmodel.svg)
 
 We use JUnit-tests for unit testing. Github Actions is used for automatic tests on Main-branch. 
 
-Junit tests will include the following:
-
 ### JUnit tests
+
+Junit tests will include the following:
 
 1. Smoketests for all controllers.
 2. Basic rendering tests for `WebController` that renders all Thymeleaf-templates. 
 3. Tests for all Jpa Repositories. 
 
+### Manual testcases
+
 Other tests include following testcases:
 
-### Registration
+#### Registration
 
 1. User goes to `/`. 
-1. User click `Register`.
-1. User hands out empty username and valid password twice.
-  - User is returned to registration form and page warns of invalid username
-3. User enters a used username and valid password twice. 
-  - User is returned to registration form and page warns of invalid username
-3. User enters valid and non-taken username and two different passwords. 
-  - User is returned to registration form and page warns of non-matching passwords. 
-2. User enters valid username and valid passwords. 
-  - User is returned to login-page. 
+2. User click `Register`.
+3. User hands out empty username and valid password twice.
+    - User is returned to registration form and page warns of invalid username
+4. User enters a used username and valid password twice. 
+    - User is returned to registration form and page warns of invalid username
+5. User enters valid and non-taken username and two different passwords. 
+    - User is returned to registration form and page warns of non-matching passwords. 
+6. User enters valid username and valid passwords. 
+    - User is returned to login-page. 
 
-### Change password
+#### Change password
 
 1. User goes to `/`. 
-3. User clicks `Login`. 
-2. User enters username and password. 
-3. User clicks his/her username. 
-  - Profile-page is displayed. 
-4. User enters his/her password correctly and a new password twice correctly. 
-  - User is returned to profile-page and message tells password is changed. 
-3. User clicks `Logout`. 
-4. User clicks `Login`. 
-3. User uses new password to login. 
-  - User is logged in succesfully. 
+2. User clicks `Login`. 
+3. User enters username and password. 
+4. User clicks his/her username. 
+    - Profile-page is displayed. 
+5. User enters his/her password correctly and a new password twice correctly. 
+    - User is returned to profile-page and message tells password is changed. 
+6. User clicks `Logout`. 
+7. User clicks `Login`. 
+8. User uses new password to login. 
+    - User is logged in succesfully. 
 
-### Upload screenshot
+#### Upload screenshot
 
 1. Let's assume user is logged in and Profile-page is displayed. 
-3. User chooses an image-file (jpeg or png). 
-2. User gives the screenshot a valid name. 
+2. User chooses an image-file (jpeg or png). 
+3. User gives the screenshot a valid name. 
 4. User click `Upload`. 
-  - Message tells image is saved and screenshot with the given name is added to list at the bottom of the page. 
+    - Message tells image is saved and screenshot with the given name is added to list at the bottom of the page. 
 
 ## Api
 
