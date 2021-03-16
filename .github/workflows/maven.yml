@@ -1,0 +1,35 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+# This YML-file has been made from the default file from GitHub using tutorial found from the following url: 
+# https://dev.to/ewefie/getting-started-with-github-actions-run-junit-5-tests-in-a-java-project-with-maven-20g4
+
+name: CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main]
+
+jobs:
+  run_tests: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with: 
+          # I am using Java 11 in this project
+          java-version: 11
+      # Now this is what I pretty much just took from the tutorial
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with: 
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: JUnit tests
+        run: mvn -B test --file pom.xml
+

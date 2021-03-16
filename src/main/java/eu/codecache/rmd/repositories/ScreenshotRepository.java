@@ -9,7 +9,9 @@ import eu.codecache.rmd.model.Screenshot;
 import eu.codecache.rmd.model.UserDTO;
 
 public interface ScreenshotRepository extends JpaRepository<Screenshot, Long> {
+
 	Screenshot findByScreenshotID(long screenshotID);
+	Screenshot findByScreenshotName(String screenshotName);
 	
 	// We need to be able to find screenshots by user
 	List<Screenshot> findByUser(UserDTO user);
