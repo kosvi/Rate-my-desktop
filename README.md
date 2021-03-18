@@ -9,6 +9,7 @@
 - [Testing](#Testing)
 - [Api](#Api)
 - [Frontend](#Frontend)
+- [Installation](#Installation)
 
 ## Description
 
@@ -217,5 +218,20 @@ As said, frontend is done with Thymeleaf templates. Alot of frontend functionali
 | `/logout` | open | allows user to logout | 
 | `/profile` | login required | allows changing password and uploading/deleting screenshots | 
 | `/pics/:id` | open | screenshot image for screenshot with :id | 
+
+
+## Installation
+
+### Prequisite
+
+You need to have [Docker](https://docs.docker.com/get-docker/) installed and also you need to have [Docker Compose](https://docs.docker.com/compose/install/). You will need `git` to fetch sources in steps below. 
+
+### Installing
+
+TODO
+
+### Running
+
+TODO 
 
 
