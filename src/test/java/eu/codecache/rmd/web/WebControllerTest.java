@@ -23,11 +23,21 @@ public class WebControllerTest {
 	private MockMvc mockMvc;
 
 	/*
-	 * This test will test that our "index"-page renders and contains the "register"-link
+	 * This test will test that our "index"-page renders and contains the
+	 * "register"-link
 	 */
 	@Test
 	public void testRegisterLink() throws Exception {
 		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Register")));
+	}
+
+	/*
+	 * Also test that register page loads correctly
+	 */
+	@Test
+	public void testRegisterPage() throws Exception {
+		this.mockMvc.perform(get("/register")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("Password")));
 	}
 }
