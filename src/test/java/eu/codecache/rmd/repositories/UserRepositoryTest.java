@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class UserRepositoryTest {
@@ -89,8 +91,8 @@ public class UserRepositoryTest {
 	@BeforeEach
 	public void createNewUser() {
 		// This kinda also tests to see if we can add & find userLevels
-		ulRepo.save(new UserLevel("user", "USER"));
-		ulRepo.save(new UserLevel("admin", "ADMIN"));
+		// ulRepo.save(new UserLevel("user", "USER"));
+		// ulRepo.save(new UserLevel("admin", "ADMIN"));
 		UserDTO user = new UserDTO(ulRepo.findByValue("USER"), "username", "password", "password");
 		UserDTO user2 = new UserDTO(ulRepo.findByValue("ADMIN"), "adminuser", "password", "password");
 		// let's not hash the password here

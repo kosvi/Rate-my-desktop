@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import eu.codecache.rmd.model.Comment;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class CommentRepositoryTest {
@@ -59,7 +61,6 @@ public class CommentRepositoryTest {
 
 	@BeforeEach
 	private void addCommentsToDB() {
-		ulRepo.save(new UserLevel("user", "USER"));
 		UserDTO user = uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "username", "password", "password"));
 		Screenshot ss1 = ssRepo.save(new Screenshot(uRepo.findByUsername("username"), "Screenshot1", ""));
 		Screenshot ss2 = ssRepo.save(new Screenshot(uRepo.findByUsername("username"), "Screenshot2", ""));
