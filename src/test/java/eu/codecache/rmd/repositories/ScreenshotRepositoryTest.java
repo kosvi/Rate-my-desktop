@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import eu.codecache.rmd.model.Rating;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class ScreenshotRepositoryTest {
@@ -50,7 +52,7 @@ public class ScreenshotRepositoryTest {
 
 	@BeforeEach
 	private void putScreenshotsToDB() {
-		uRepo.save(new UserDTO(ulRepo.save(new UserLevel("user", "USER")), "username", "password", "password"));
+		uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "username", "password", "password"));
 		uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "username2", "password", "password"));
 		ssRepo.save(new Screenshot(uRepo.findByUsername("username"), "Screenshot1", ""));
 		ssRepo.save(new Screenshot(uRepo.findByUsername("username"), "Screenshot2", ""));
