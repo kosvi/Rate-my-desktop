@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	lang="en">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+	<div id="nav">
+		<a href="/">Random screenshot</a>
+	</div>
+	<div id="content">
+		<h1 th:if="${username}">[[${username}]]</h1>
+		<p th:if="${upload}" class="uploadMessage">[[${message}]]</p>
+		<p class="smallTitle">Change password</p>
+		<form action="/api/user" method="post">
+			<table>
+				<tr>
+					<td>Old password:</td>
+					<td><input type="password" id="oldPassword" name="oldPassword" />
+				</tr>
+				<tr>
+					<td>New password:</td>
+					<td><input type="password" id="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td>Retype new password:</td>
+					<td><input type="password" id="password2" name="password2" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input type="submit" value="Update" /></td>
+				</tr>
+			</table>
+		</form>
+		<div id="uploadDiv">
+			<p class="smallTitle">Upload screenshot</p>
+			<form method="POST" action="/upload" enctype="multipart/form-data">
+				<p>
+					Choose file:<br /> <input type="file" name="file" />
+				</p>
+				<p>
+					Give screenshot a name:<br /> <input type="text" name="name" />
+				</p>
+				<p>
+					<input type="submit" value="Upload" />
+				</p>
+			</form>
+		</div>
+		<div id="screenshotlist"></div>
+	</div>
+
+	<script src="static/profile.js"></script>
+	<script>
+		Profile.updateScreenshots();
+	</script>
+</body>
+</html>
