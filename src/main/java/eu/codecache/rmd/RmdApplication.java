@@ -43,6 +43,14 @@ public class RmdApplication {
 			if (ul2 == null) {
 				ulRepo.save(new UserLevel("user", "USER"));
 			}
+			// Add admin, if not exists
+			UserDTO user = uRepo.findByUsername("admin");
+			if (user == null) {
+				user = new UserDTO(ulRepo.findByValue("ADMIN"), "admin", "admin1", "admin1");
+				if (user.encodePassword()) {
+					uRepo.save(user);
+				}
+			}
 			/*
 			 * Below is some test-data to use for testing
 			 */
