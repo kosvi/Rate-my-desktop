@@ -34,6 +34,18 @@ public class RmdApplication {
 			CommentRepository cRepo, RatingRepository rRepo) {
 		return (args) -> {
 			System.out.println("CommandLineRunner ajetaan");
+			// Add userlevels if not exists
+			UserLevel ul1 = ulRepo.findByValue("ADMIN");
+			UserLevel ul2 = ulRepo.findByValue("USER");
+			if (ul1 == null) {
+				ulRepo.save(new UserLevel("admin", "ADMIN"));
+			}
+			if (ul2 == null) {
+				ulRepo.save(new UserLevel("user", "USER"));
+			}
+			/*
+			 * Below is some test-data to use for testing
+			 */
 //			ulRepo.save(new UserLevel("Admin", "ADMIN"));
 //			ulRepo.save(new UserLevel("User", "USER"));
 //			uRepo.save(new UserDTO(ulRepo.findByValue("USER"), "user",
