@@ -10,6 +10,7 @@
 - [Api](#Api)
 - [Frontend](#Frontend)
 - [Installation](#Installation)
+- [Live Demo](#Live-demo)
 
 ## Description
 
