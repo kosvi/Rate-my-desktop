@@ -16,6 +16,7 @@ WORKDIR /usr/app
 COPY --from=build-stage /usr/app/target/rmd-0.0.1-SNAPSHOT.jar /usr/app/
 
 RUN useradd -u 10100 app && \
+    mkdir /usr/app/pics && \
     chown -R app /usr/app
 USER app
 
