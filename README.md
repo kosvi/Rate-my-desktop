@@ -247,6 +247,7 @@ Run command: `docker build -t rate-my-desktop . `
 Step 4 - Create directory
 
 Create directory for screenshot uploads: `mkdir screenshots`
+
 And give the app permission to the directory: `chown 10100 screenshots`
 
 Step 5 - Start app
@@ -273,7 +274,9 @@ Step 2 - Modify settings
 Step 3 - Create directories
 
 `mkdir screenshots`
+
 `mkdir mariadb`
+
 `chown 10100 screenshots`
 
 Step 4 - Run app
