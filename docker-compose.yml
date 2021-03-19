@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+    mariadb:
+        image: mariadb
+        restart: unless-stopped
+        environment: 
+          - MYSQL_ROOT_PASSWORD=badPassword
+          - MYSQL_DATABASE=RMD
+          - MYSQL_USER=rmd
+          - MYSQL_PASSWORD=badPassword
+        volumes:
+          - ./mariadb:/var/lib/mysql/
+        command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+    rmd:
+        build: .
+        restart: unless-stopped
+        ports:
+          - 80:8080
+        volumes:
+          - ./screenshots:/usr/app/pics/
+        depends_on:
+          - mariadb
+

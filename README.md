@@ -228,10 +228,69 @@ You need to have [Docker](https://docs.docker.com/get-docker/) installed and als
 
 ### Installing
 
-TODO
+#### Option 1
 
-### Running
+This option allows you to run the server using existing MySQL/MariaDB database. This is useful, if you are already running a database server on your network and don't want another instance of MariaDB running. 
 
-TODO 
+Step 1 - Clone git-repository
+
+`git clone https://github.com/kosvi/Rate-my-desktop.git`
+
+Step 2 - Modify settings
+
+> Edit file `src/main/resources/application.properties` and set `spring.datasource.url` with your database hostname (eg. localhost). Create database called `RMD` in your MySQL/MariaDB. Also set username & password with an account that has full access to database named `RMD`. 
+
+Step 3 - Build app
+
+Run command: `docker build -t rate-my-desktop . `
+
+Step 4 - Create directory
+
+Create directory for screenshot uploads: `mkdir screenshots`
+
+And give the app permission to the directory: `chown 10100 screenshots`
+
+Step 5 - Start app
+
+Run command: `docker run -d -v "$(pwd)/screenshots:/usr/app/pics/" -p 80:8080 rate-my-desktop`
+
+**NOTICE**
+
+On first run the app created admin account with password `admin1`. Login with `admin` using password `admin1` and change the password. Now you are done!
+
+
+#### Option 2
+
+This will handle database, so you don't have to worry about it your self. 
+
+Step 1 - Clone git-repository 
+
+`git clone https://github.com/kosvi/Rate-my-desktop.git`
+
+Step 2 - Modify settings
+
+> Edit file `docker-compose.yml`. You will find line `- 80:8080`. Change the first 80 with the port you want to use for the app. 
+
+Step 3 - Create directories
+
+`mkdir screenshots`
+
+`mkdir mariadb`
+
+`chown 10100 screenshots`
+
+Step 4 - Run app
+
+`docker-compose up`
+
+**NOTICE**
+
+On first run the app created admin account with password `admin1`. Login with `admin` using password `admin1` and change the password. Now you are done!
+
+
+
+## Live demo
+
+Live demo can be found at: [rmd.codecache.eu](https://rmd.codecache.eu/)
 
 
