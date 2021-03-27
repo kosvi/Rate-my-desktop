@@ -31,8 +31,8 @@ Project has to be done using Spring Boot and webpages have to be rendered using 
 | 5 | As a user, I want to be able to change my account name and password in case I think my password is compromised | done | 
 | 6 | As a user, I want to be able to delete screenshots I've uploaded in case I accidentally upload wrong pic or notice something I don't want others to see in it. | done |
 | 7 | As a user, I want others to be able to rate my screenshot so I know it it's cool or not | done |
-| 8 | As an admin, I want to be able to delete screenshots in case there is something inappropriate in it. |
-| 9 | As an admin, I want to be able to delete individual comments in case there is something inappropriate in it. | 
+| 8 | As an admin, I want to be able to delete screenshots in case there is something inappropriate in it. | done |
+| 9 | As an admin, I want to be able to delete individual comments in case there is something inappropriate in it. | done |
 | 10 | As an admin, I want to be able to lock accounts in case they keep on harrassing others |
 
 ## Wireframes

@@ -71,7 +71,9 @@ public class CommentController {
 			if (comment != null) {
 				// comment with ID was found -> delete and return list of remaining comments
 				Screenshot screenshot = comment.getScreenshot();
-				cRepo.delete(comment);
+				comment.setScreenshot(null);
+				cRepo.save(comment);
+//				cRepo.delete(comment);
 				return cRepo.findByScreenshot(screenshot);
 			}
 			// comment wasn't found with ID -> 404

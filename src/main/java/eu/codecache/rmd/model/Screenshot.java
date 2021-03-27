@@ -33,6 +33,10 @@ public class Screenshot {
 //	@Size(min = 10, max = 100)
 	private String filename;
 
+	@OneToMany(mappedBy = "screenshot", orphanRemoval = true)
+	@JsonIgnore
+	private List<Comment> comments;
+
 	public Screenshot() {
 
 	}
@@ -75,5 +79,4 @@ public class Screenshot {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-
 }

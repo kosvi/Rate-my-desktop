@@ -25,6 +25,13 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDTO user = uRepo.findByUsername(username);
+		/*
+		 * I didn't check if user was found and I ended up getting strage error-messages
+		 * when mistyping username to login form. This fixed those issues.
+		 */
+		if (user == null) {
+			throw new UsernameNotFoundException(username);
+		}
 		UserDetails details = new User(user.getUsername(), user.getPasswordHash(),
 				AuthorityUtils.createAuthorityList(user.getLevel().getValue()));
 		return details;

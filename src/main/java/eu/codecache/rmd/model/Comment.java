@@ -25,9 +25,9 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long commentID;
 
-	@NotNull
+	// @NotNull
 	@ManyToOne(cascade = CascadeType.REMOVE)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	// @OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "screenshotID")
 	private Screenshot screenshot;
 

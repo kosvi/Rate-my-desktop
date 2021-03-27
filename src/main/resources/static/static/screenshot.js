@@ -18,9 +18,15 @@ function setRating(ssRating, id, name, myRating) {
 	} else {
 		ratingDiv.innerHTML = "not yet rated";
 	}
+	if (document.getElementById('nav').innerText.includes("ADMIN")) {
+		ratingDiv.innerHTML += " <span class=\"deleteScreenshotButton\" onclick='deleteScreenshot(" + id + ")'>x</span>";
+	}
 	// also set name for the screenshot
+	const titleField = document.getElementById('screenshotTitle');
+	titleField.innerText = name;
 	const rateDiv = document.getElementById('rate');
-	rateDiv.innerHTML = "<p>" + name + "</p><p id=\"rateButtons\"></p>";
+	//	rateDiv.innerHTML = "<p>" + name + "</p><p id=\"rateButtons\"></p>";
+	rateDiv.innerHTML = "<p id=\"rateButtons\"></p>";
 	createRateButtons(id, myRating);
 }
 
@@ -35,7 +41,11 @@ function setComments(ssComments) {
 	commentDiv.innerHTML = "";
 	for (let i = 0; i < ssComments.length; i++) {
 		const date = new Date(ssComments[i].timestamp);
-		commentDiv.innerHTML += "<p class=\"comment\">" + makeTimestamp(date) + "<span class=\"cUser\">" + ssComments[i].user.username + "</span> " + ssComments[i].comment + "</p>";
+		var deleteButton = "";
+		if (document.getElementById('nav').innerText.includes("ADMIN")) {
+			deleteButton = "<span class=\"deleteScreenshotButton\" onclick='deleteComment(" + ssComments[i].commentID + ")'>x</span> ";
+		}
+		commentDiv.innerHTML += "<p class=\"comment\">" + deleteButton + makeTimestamp(date) + "<span class=\"cUser\">" + ssComments[i].user.username + "</span> " + ssComments[i].comment + "</p>";
 	}
 }
 
@@ -154,6 +164,35 @@ async function addComment() {
 }
 
 
+async function deleteScreenshot(id) {
+	try {
+		const response = await fetch("/api/screenshots/" + id, {
+			method: 'DELETE',
+			headers: {
+				'Content-type': 'Application/json',
+			},
+		});
+		const responseJSON = await response.json();
+		console.log(responseJSON);
+		document.getElementById("screenshotTitle").innerText = responseJSON.screenshotName;
+	} catch (error) {
+		console.log(error);
+	}
+}
 
+async function deleteComment(id) {
+	try {
+		const response = await fetch("/api/comments/" + id, {
+			method: 'DELETE',
+			headers: {
+				'Content-type': 'Application/json',
+			},
+		});
+		const responseJSON = await response.json();
+		console.log(responseJSON);
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 
