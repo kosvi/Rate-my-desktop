@@ -52,6 +52,11 @@ public class WebController {
 		if (principal != null) {
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("loggedIn", true);
+			String username = principal.getName();
+			if(uRepo.findByUsername(username).getLevel().getValue().equals("ADMIN")) {
+				// User is admin
+				model.addAttribute("adminStatus", true);
+			}
 		} else {
 			model.addAttribute("name", false);
 			model.addAttribute("loggedIn", false);

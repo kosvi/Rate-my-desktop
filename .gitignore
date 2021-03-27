@@ -1,2 +1,3 @@
 /target/
-foo/src/main/resources/application.properties
+src/main/resources/application.properties.dev
+application.properties

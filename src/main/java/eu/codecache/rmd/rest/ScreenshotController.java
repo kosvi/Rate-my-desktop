@@ -133,6 +133,9 @@ public class ScreenshotController {
 		return screenshots;
 	}
 
+	/*
+	 * Return values are still wrong (I think this will always return 200 OK)
+	 */
 	@RequestMapping(value = API_BASE + "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody Screenshot deleteScreenshot(@PathVariable("id") Long screenshotID, Principal principal) {
 		// Let's see if the user is logged in
@@ -140,6 +143,9 @@ public class ScreenshotController {
 		Screenshot ss = ssRepo.findByScreenshotID(screenshotID);
 		if (user.getUserID() == ss.getUser().getUserID()) {
 			// User is the owner
+			ssRepo.delete(ss);
+		} else if (user.getLevel().getValue().equals("ADMIN")) {
+			// User is admin
 			ssRepo.delete(ss);
 		} else {
 			return ss;
